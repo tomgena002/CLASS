@@ -1,0 +1,38 @@
+<!doctype html>
+
+<h2>20221018 CLASS</h2>
+
+<h3>awk</h3>
+
+<p>
+全従業員の月額給料データ
+1: 名前<br>
+2: 時給 (円/hr)<br>
+3: 労働時間 (hr/month)<br>
+
+<pre>
+Sato      1300 225
+Hirai      900 120
+Nakamura   800   0
+Ito       2500 205
+Kato      1250 275
+Suzuki    1200 180
+</pre>
+
+<p> [1] ゼロ時間より多く働いた従業員の名前と賃金は？
+<p> [2] 働かなかった従業員の名前は？
+<p> [3] 
+
+<hr>
+
+<h4> ANSWER [1] </h4>
+<pre>
+  cat data | awk '$3>0{print $1, $2*$3}'
+</pre>
+
+
+<h4> ANSWER [2] </h4>
+<pre>
+  cat data | awk '$3==0{print $1}'
+</pre>
+
