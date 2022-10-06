@@ -1,144 +1,622 @@
 <!doctype html>
+<meta charset="utf-8">
+<style>
 
-<h2>20221018</h2>
-<h3>CLASS 1</h3>
-<h4>CUI/GUI</h4>
-User Interface: 人がコンピュータを操作する/コンピュータが人に情報を見せる仕組み
+.cmdbox {
+	color: #FFFFFF;
+	background-color: #474749;
+	overflow: auto;
+	padding: 10px;
+}
 
-GUI: Graphical User Interface
-  desktop
-CUI: Character User Interface
-  terminal: command入力するためのプログラム
+.output {
+	color: #ffffff;
+	background-color: #375882;
+	overflow: auto;
+	padding: 10px;
+}
+
+</style>
+
+<h2>20221018 13:00-17:00</h2>
+<h3>第1講(13:00-13:50) </h3>
+<h4>CUI/GUIとは</h4>
+<ul>
+<li>UI(User Interface): 人がコンピュータを操作する/コンピュータが人に情報を見せる仕組み
+<li> GUI: Graphical UI, 
+    デスクトップ上に表示されているボタンやアイコンをマウスでクリックして操作するイメージ
+<li>CUI: Character UI, 
+    ターミナル(端末)と呼ばれるソフトウェア上でキーボードからcommandを入力して操作
+</ul>
+<br>
+
+
 
 <h4>command　書式</h4>
-<pre>
-command [option] [引数]
-
-  []は省略可能
-  option: 機能切替え
-  引数:commandの処理対象
+<pre class="cmdbox">
+  $ command [option] [引数]
 </pre>
 
-<hr>
-<h3>CLASS 2: FILE/DIRECTORYの操作</h3>
-# file/directory<br>
-file・directoryは階層構造で配置されている
-特定のfile・directoryの位置は絶対パス又は相対パスで指定する
-相対パスではcurrent directory (=現在の作業位置)を起点とする
-login直後のcurrent directoryはuserごとのhome directoryである
+<ul>
+<li>行頭の"$"はプロンプトといい、コマンド入力可能であることを表示している。
+<li>[]は省略可能
+<li>行頭,行末およびcommand,option,引数の間にはいくつ空白を置いてもよい.
+<li>option: 機能切替え
+<li>引数:commandの処理対象
+</ul>
 
+<hr>
+<h3>第2講(14:00-14:50): FILE/DIRECTORYの操作</h3>
+
+<ul>
+<li>file・directoryは<b>階層構造</b>で配置されている
+<li>特定のfile・directoryの位置は<b>絶対パス</b>又は
+    <b>相対パス</b>で指定する
+<li>相対パスでは<b>current directory (=現在の作業位置)</b>を起点とする
+<li>login直後のcurrent directoryはuserごとの<b>home directory</b>である
+</ul>
 
 <h4>pwdコマンド</h4>
-current directoryの確認
 
-<h4>cdコマンド</h4>
-cd DIR
-  DIRに移動する
-cd
-  home directoryに移動する
-cd -
-  直前のcurrent directoryに移動する
+Print Working Directoryの意味. current directoryの確認に使用.
+<pre class="cmdbox">
+  $ pwd
+</pre>
 
-<h4>lsコマンド</h4>
-ls
-  current directory内のfile・directoryのlistを表示する
-ls DIR
-  DIR内のfile・directoryのlistを表示する
-ls -l
-  詳細情報表示
-ls -a
-  ドットから始まるfile・directory名のものも表示する
+出力例
+<pre class="output">
+  /home/tom
+</pre>
+<br>
 
-<h4>catコマンド</h4>
-cat FILE
-  FILEの内容を表示する
-<h4>lessコマンド</h4>
-less FILE
-  FILEの内容を表示する (１画面ずつ), qで終了
 
-<h4>cpコマンド</h4>
-cp FILE1 FILE2
-  FILE1をFILE2という名前でコピー
-cp -r DIR1 DIR2
-  directoryのコピー
-
-<h4>mvコマンド</h4>
-mv FILE DIR
-  FILEをDIR内に移動
-mv FILE1 FILE2
-  ファイル名をFILE1からFILE2に変更する
-
-<h4>rmコマンド</h4>
-rm FILE
-  FILEを削除する
-rm -r DIR
-  DIRを削除する
 
 <h4>mkdirコマンド</h4>
-mkdir DIR
-  DIRを作製する
+
+make directoryの意味. 指定名のdirectoryを作る.
+<pre class="cmdbox">
+  $ mkdir HIGO          # "HIGO"という名前のdirectoryを/home/tom上に作製 (/home/tom/HIGO). これは相対パス指定の例
+                        # mkdir /home/tom/HIGO というように絶対パス指定でもOK
+                        # mkdir ~/HIGO とも書ける, "~"はhome directoryに置換される
+                        # 因みに"#"以下は行末までコメント(コマンドの一部でない)として扱われる
+  $ mkdir HIGO/class2   # "HIGO" directory配下に"class2" directoryを作製
+                        # mkdir -p HIGO/class2 という風に-pオプションを使えば
+                          HIGO directoryが存在しなくても両方のdirectoryを一度
+                          に作製することができる.
+</pre>
+<br>
+
+
+
+<h4>cdコマンド</h4>
+
+Change Directoryの意味. Current directoryの移動に使用.
+<pre class="cmdbox">
+  $ cd HIGO/class2
+  $ pwd
+</pre>
+<pre class="output">
+  /home/tom/HIGO/class2
+</pre>
+
+<pre class="cmdbox">
+  $ cd ..                  # ".."は一つ上のdirectoryの意味
+  $ pwd
+</pre>
+<pre class="output">
+  /home/tom/HIGO
+</pre>
+
+<pre class="cmdbox">
+  $ cd                     # 引数が無指定の場合はhome directoryに移動
+  $ pwd
+</pre>
+<pre class="output">
+  /home/tom
+</pre>
+
+<pre class="cmdbox">
+  $ cd -                   # 直前のcurrent directoryに移動する
+  $ pwd
+</pre>
+<pre class="output">
+  /home/tom/HIGO
+</pre>
+
+<pre class="cmdbox">
+  $ cd ~/HIGO/class2       # 当然、絶対パスでも指定可能
+  $ pwd
+</pre>
+<pre class="output">
+  /home/tom/HIGO/class2
+</pre>
+<br>
+
+
+
+<h4>lsコマンド</h4>
+
+listの意味. あるdirectory内のfileやdirectoryの一覧を表示する.
+<pre class="cmdbox">
+  $ ls ~       # 引数で指定したdirectory(=ここではhome directory)のfile/directoryの一覧表示
+  
+  $ ls -a ~    # "."から始まるfile・directory名のもの(隠しファイル)も表示
+  $ ls -l ~    # 詳細表示
+  $ ls -al ~   # -a オプションと -l オプション の両方を指定した場合 
+               # ls -a -l ~ と書いても同じ 
+               # ls -l -a ~ と書いても同じ 
+               # ls -la   ~ と書いても同じ 
+  $ ls         # Current directoryのfile・directory一覧表示
+</pre>
+<br>
+
+
+
+
+<h4>lessコマンド</h4>
+
+file内容を表示する (別画面に遷移する/qとタイプすると終了)
+<pre class="cmdbox">
+  $ less ~/.bashrc
+</pre>
+<br>
+
+
+
+
+<h4>catコマンド</h4>
+
+file内容を表示する
+<pre class="cmdbox">
+  $ cat ~/.bashrc
+</pre>
+<br>
+
+file内容を連結(Catenation)表示する
+<pre class="cmdbox">
+  $ echo aaa > file1            # "aaa"という内容のファイルfile1を作製
+  $ echo bbb > file2            # "bbb"という内容のファイルfile2を作製
+  $ cat file1 file2 > file3     # file1 file2の順でファイル内容を連結した
+                                  file3を作製
+  $ cat file3
+</pre>
+<pre class="output">
+  aaa
+  bbb
+  aaa
+</pre>
+<br>
+
+
+
+
+<h4>cpコマンド</h4>
+
+Copyの意味. file・directoryを複製する.
+<pre class="cmdbox">
+  $ cp file3 file4       # file3をfile4という名前で複製
+  $ cat file4
+</pre>
+<pre class="output">
+  aaa
+  bbb
+  aaa
+</pre>
+
+<pre class="cmdbox">
+  $ cp -r . ../class2_copy    # directoryを複製するときは-r オプションが必要
+                              # "."はこのdirectoryの意味
+  $ ls ../class2_copy
+</pre>
+<pre class="output">
+  file1 file2 file3 file4
+</pre>
+<br>
+
+
+
+<h4>mvコマンド</h4>
+
+moveの意味. fileを別のdirectory配下に移動.
+<pre class="cmdbox">
+  $ cp file4 file5 
+  $ ls
+</pre>
+<pre class="output">
+  file1 file2 file3 file4 file5
+</pre>
+<pre class="cmdbox">
+  $ mv file5 ../class2_copy
+  $ ls
+</pre>
+<pre class="output">
+  file1 file2 file3 file4
+</pre>
+<pre class="cmdbox">
+  $ ls ../class2_copy
+</pre>
+<pre class="output">
+  file1 file2 file3 file4 file5
+</pre>
+<br>
+
+
+ファイル名を変更する
+<pre class="cmdbox">
+  $ mv file4 file_4
+  $ ls
+</pre>
+<pre class="output">
+  file1 file2 file3 file_4
+</pre>
+<pre class="cmdbox">
+  $ mv file1 file_4          # 移動先をすでに存在するファイル名を指定した場合
+  $ cat file_4
+</pre>
+<pre class="output">
+  aaa
+</pre>
+<br>
+
+
+
+<h4>rmコマンド</h4>
+
+removeの意味. file・directoryの削除.
+<pre class="cmdbox">
+  $ rm file_4
+  $ ls
+</pre>
+<pre class="output">
+  file2 file3
+</pre>
+
+
+<pre class="cmdbox">
+  $ rm -r ../class2_copy     # directoryを削除する際は-r オプションをつける.
+  $ ls ..
+</pre>
+<pre class="output">
+  class2
+</pre>
+<br>
 
 
 
 <hr>
-<h3>CLASS 3</h3>
-# commmandの入出力
-標準入力: キーボード (default)
-標準出力: 端末画面 (default)
-標準エラー出力: 端末画面 (default)
+<h3>第3講(15:00-15:50)</h3>
 
-# 入力元・出力先の切替え (=リダイレクト)
-command > FILE
-  command実行結果の出力先を標準出力からFILEにリダイレクト
-command >> FILE
-  command実行結果の出力先を標準出力からFILE末尾に追記リダイレクト
-command 2> FILE
-  command実行時の標準エラー出力をFILEにリダイレクト
-
-# 入力元・出力先の切替えによるcommand同士の連携 (=パイプ)
-command
-
-# editor
+まずは準備
+<pre class="cmdbox">
+  $ mkdir ~/HIGO/class3
+  $ cd    ~/HIGO/class3
+</pre>
+<br>
 
 
-# 変数
+
+<h4>commmandの入出力</h4>
+<ul>
+  <li><b>標準入力</b>:       キーボード (default)
+  <li><b>標準出力</b>:       端末画面 (default)
+  <li><b>標準エラー出力</b>: 端末画面 (default)
+</ul>
+
+<h4>入力元・出力先の切替え (=<b>リダイレクト</b>) </h4>
+
+command実行結果の出力先を<b>標準出力からFILEに</b>リダイレクト<br>
+<pre class="cmdbox">
+  $ command > FILE
+</pre>
+
+実行例
+<pre class="cmdbox">
+  $ seq 5              # 実行例を示す前に
+  $ seq 1 5            # seqコマンドの挙動を確認
+  $ seq 5 10           # 
+  $ seq -w 10          # 
+</pre>
+
+<pre class="cmdbox">
+  $ seq 3 > file       
+  $ cat file
+</pre>
+
+<pre class="output">
+  1
+  2
+  3
+</pre>
+<br>
+
+<pre class="cmdbox">
+  $ seq 4 6 > file 
+  $ cat file
+</pre>
+
+<pre class="output">
+  4
+  5
+  6
+</pre>
+<br>
 
 
-# echo
 
-# 実行権限・スクリプト作製/alias
 
-<hr>
-<h3>CLASS 4: FILTER</h3>
-tr
-wc
-grep
-sed
-sort
-head
-tail
-seq
-while/read
-$(())
+">"だと元々のファイル内容は一旦空になることに注意.<br>
+ファイル末尾にデータを新たに追加したい場合は<b>追記リダイレクト">>"</b>を使う
+<pre class="cmdbox">
+  $ seq 3   > file
+  $ seq 4 6 >> file
+  $ cat file
+</pre>
+<pre class="output">
+  1
+  2
+  3
+  4
+  5
+  6
+</pre>
+<br>
 
-<hr>
-<hr>
-<h2>20221018</h2>
-<h3>CLASS 5</h3>
-gzip
-tar
-curl
-wget
 
-<hr>
-<h3>CLASS6: awk</h3>
+
+command実行時の<b>標準エラー出力</b>をFILEにリダイレクト
+<pre class="cmdbox">
+  $ command 2> FILE      # 2と>の間に空白がないように
+</pre>
+<br>
+
+実行例
+<pre class="cmdbox">
+  $ cat file1            # 例えば存在しないファイルfile1を指定した場合
+</pre>
+<pre class="output">
+  ls: 'file1'にアクセスできません: そのようなファイルやディレクトリはありません
+</pre>
+
+<pre class="cmdbox">
+  $ cat file1 2> file
+  # cat file
+</pre>
+<pre class="output">
+  ls: 'file1'にアクセスできません: そのようなファイルやディレクトリはありません
+</pre>
+<br>
+
+
+
+
+<h4>入力元・出力先の切替えによるcommand同士の連携 (=<b>パイプ</b>)</h4>
+<pre class="cmdbox">
+  $ command1 | command2       # command1の標準出力をcommand2の標準入力に接続
+</pre>
+<br>
+
+実行例
+<pre class="cmdbox">
+  $ seq 3 > file
+  $ tac file                 # tacコマンドはファイル内容を逆順に出力する.
+</pre>
+<pre class="output">
+  3
+  2
+  1
+</pre>
+<pre class="cmdbox">
+  $ seq 3 | tac
+</pre>
+<pre class="output">
+  3
+  2
+  1
+</pre>
+<br>
+
+
+
+<h4>変数</h4>
+<pre class="cmdbox">
+  $ original=atgc　            # "atgc"という文字列を変数originalに代入."="の前後に空白を含まぬよう!!
+  $ echo $original             # 変数originalの内容を参照
+</pre>
+<pre class="output">
+  atgc
+</pre>
+<br>
+
+
+
+<h4>コマンド置換: "$(command)"</h4>
+<pre class="cmdbox">
+  $ echo $original | rev            # revコマンドは行内を逆順出力
+</pre>
+<pre class="output">
+  cgta
+</pre>
+
+<pre class="cmdbox">
+  $  reverse=$(echo $original | rev)
+  $  echo ORIGINAL_SEQ is $original
+  $  echo REVERSE_SEQ is $reverse
+</pre>
+<pre class="output">
+  ORIGINAL_SEQ is atgc
+  REVERSE_SEQQ is cgta
+</pre>
+<br>
+
+
+
+<h4>TEXT editor</h4>
+<pre class="cmdbox">
+  $ vim hoge           # "hoge"という名前のファイルをvimで編集する.
+</pre>
+<br>
+
 <p>
-全従業員の月額給料データ
-1: 名前<br>
-2: 時給 (円/hr)<br>
-3: 労働時間 (hr/month)<br>
+今回は<b>VIM</b>というTEXT editorを用いてファイルを編集する.<br>
+text editorはMS wordのように文書(プログラム)を書くものだが、<br>
+MS wordのように文書を装飾する機能(太字、斜体、フォント変更など)はない.<br>
+プログラムを書くために便利な機能が多くある。<br>
+<br>
+VIMには<b>ノーマルモード</b>と<b>インサートモード</b>がある(他のモードも多くあるがここでは省略).<br>
+<ul>
+  <li><b>i     (ノーマルモード時):</b> インサートモードに移行.
+  <li><b>Esc (インサートモード時):</b> インサートモードに移行.
+  <li><b>dd    (ノーマルモード時):</b> 行削除(delete).
+  <li><b>yy    (ノーマルモード時):</b> 行コピー(yank).
+  <li><b>p     (ノーマルモード時):</b> 貼り付け(paste).
+  <li><b>u     (ノーマルモード時):</b> 元に戻す(undo).
+  <li><b>:w    (ノーマルモード時):</b> ファイルを(上書き)保存.
+  <li><b>:wq   (ノーマルモード時):</b> ファイルを(上書き)保存して終了.
+  <li><b>:q!   (ノーマルモード時):</b> ファイルに変更点を保存せずに終了.
+</ul>
+<br>
 
-<pre>
+
+
+<h4>script作製</h4>
+一連の作業内容をファイルに保存し、一つのコマンドとして再利用したい場合など.<br>
+
+<ol>
+  <li> scriptファイルを作製する.
+  <li> そのファイルに実行権限を付与する.
+  <li> そのファイルをPATHの通ったdirectory下に配置する.
+</ol>
+<br>
+
+1. script作製
+<pre class="cmdbox">
+  $ vim reverse_seq
+</pre>
+
+&nbsp;&nbsp;<h6>~/HIGO/class3/reverse_seq</h6>
+<pre class="cmdbox">
+  #!/bin/sh
+
+  seqname=$1
+  original=$2
+  reverse=$(echo $original | rev)
+  
+  echo $original $reverse
+</pre>
+
+<p>
+文頭の"#!/bin/sh"をシバンという.一種のおまじないとして覚えておくように.<br>
+$1や$2は位置パラメータという.<br>
+reverse_seq seq1 atgc　としてこのコマンドを使用した場合、$1=seq, $2=atgcとなる.<br><br>
+
+
+
+2. 実行権限を付与する.
+<pre class="cmdbox">
+  $ chmod +x reverse_seq      # "chomd +x"によりコマンドとして実行可能なファイルとなる.
+</pre>
+<br>
+
+
+
+
+3. PATHを通す.
+<pre class="cmdbox">
+  $ echo $PATH               # PATHは組込変数
+                             # ":"区切り.コマンド用directoryへのパスの一覧
+                             # これらのdirectory内のファイル名はそのままコマンド名として認識される.
+</pre>
+
+<pre class="output">
+  /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin
+</pre>
+
+<pre class="cmdbox">
+  $ vim ~/.profile           # PATH変数は通常~/.profile内で定義されている.
+</pre>
+
+ファイル内のPATHの記載部分を<br>
+PATH=<b>~/bin:</b>/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin
+などのように書き換えて<br>
+自分の作ったコマンドを入れるdirectory(~/bin)をPATHの先頭に追加.
+<br>
+
+<pre class="cmdbox">
+  $ . ~/.profile           # "."コマンドを用いて変更内容を反映させる.
+  $ echo $PATH
+</pre>
+
+<pre class="output">
+  /home/tom/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin
+</pre>
+
+<pre class="cmdbox">
+  $ mkdir ~/bin                      # 存在しないなら作製.
+  $ mv reverse_seq ~/bin             # scriptをPATHの通った~/binに移動.
+                                     # これでコマンドとして使用できるはずだから...
+  $ reverse_seq seq_id_1 atacgtag    # 確認!!
+</pre>
+
+<pre class="output">
+  seq_id_1 atacgtag gatgcata
+</pre>
+<br>
+
+
+
+<h4>練習問題</h4>
+上と同様の引数を与えたときに以下を出力するコマンド"reverse_seq_2"を作製せよ.
+<br>
+&nbsp;seq_id_1_original atacgtag<br>
+&nbsp;seq_id_1_reverse gatgcata<br>
+<br>
+
+
+
+
+<hr>
+<h3>第4講(16:00-16:50): FILTER</h3>
+
+<h4>trコマンド</h4>
+<h4>wcコマンド</h4>
+<h4>grepコマンド</h4>
+<h4>sedコマンド</h4>
+<h4>sortコマンド</h4>
+<h4>headコマンド</h4>
+<h4>tailコマンド</h4>
+<h4>while read文</h4>
+
+<br>
+<hr>
+<hr>
+<hr>
+<br>
+
+<h2>20221019</h2>
+<h3>第5講(13:00-13:50)</h3>
+<h4>gzip</h4>
+<h4>tar</h4>
+<h4>curl</h4>
+<h4>wget</h4>
+
+
+
+
+<hr>
+<h3>第6講(14:00-14:50): AWK</h3>
+
+
+<p>
+<pre class="cmdbox">
+  $ cat employees
+  
+    # 全従業員の月額給料データ
+    #   1: 名前
+    #   2: 時給 (円/hr)
+    #   3: 労働時間 (hr/month)
+</pre>
+
+<pre class="output">
 Sato      1300 225
 Hirai      900 120
 Nakamura   800   0
@@ -147,29 +625,38 @@ Kato      1250 275
 Suzuki    1200 180
 </pre>
 
+<b4>問題</b4>
 <p> [1] ゼロ時間より多く働いた従業員の名前と賃金は？
 <p> [2] 働かなかった従業員の名前は？
 <p> [3] 
 
 
-<h4> ANSWER [1] </h4>
-<pre>
-  cat data | awk '$3>0{print $1, $2*$3}'
+<h4> ANSWER </h4>
+
+<p>[1]
+<pre class="cmdbox">
+  $  cat data | awk '$3>0{print $1, $2*$3}'
 </pre>
+<br>
+
+<p> [2]
+<pre class="cmdbox">
+  $  cat data | awk '$3==0{print $1}'
+</pre>
+<br>
 
 
-<h4> ANSWER [2] </h4>
-<pre>
-  cat data | awk '$3==0{print $1}'
-</pre>
 
 
 <hr>
-<h3>CLASS7: SCRIPTの作製</h3>
+<h3>第7講(15:00-15:50): SCRIPTの作製</h3>
 <h4>tm</h4>
 <h4>reverse complement</h4>
 
+
+
+
 <hr>
-<h3>CLASS8: RNA-seq</h3>
+<h3>第8講(16:00-16:50): RNA-seq</h3>
 
 
