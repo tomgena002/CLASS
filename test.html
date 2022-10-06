@@ -1,9 +1,137 @@
 <!doctype html>
 
-<h2>20221018 CLASS</h2>
+<h2>20221018</h2>
+<h3>CLASS 1</h3>
+<h4>CUI/GUI</h4>
+User Interface: 人がコンピュータを操作する/コンピュータが人に情報を見せる仕組み
 
-<h3>awk</h3>
+GUI: Graphical User Interface
+  desktop
+CUI: Character User Interface
+  terminal: command入力するためのプログラム
 
+<h4>command　書式</h4>
+<pre>
+command [option] [引数]
+
+  []は省略可能
+  option: 機能切替え
+  引数:commandの処理対象
+</pre>
+
+<hr>
+<h3>CLASS 2: FILE/DIRECTORYの操作</h3>
+# file/directory<br>
+file・directoryは階層構造で配置されている
+特定のfile・directoryの位置は絶対パス又は相対パスで指定する
+相対パスではcurrent directory (=現在の作業位置)を起点とする
+login直後のcurrent directoryはuserごとのhome directoryである
+
+
+<h4>pwdコマンド</h4>
+current directoryの確認
+
+<h4>cdコマンド</h4>
+cd DIR
+  DIRに移動する
+cd
+  home directoryに移動する
+cd -
+  直前のcurrent directoryに移動する
+
+<h4>lsコマンド</h4>
+ls
+  current directory内のfile・directoryのlistを表示する
+ls DIR
+  DIR内のfile・directoryのlistを表示する
+ls -l
+  詳細情報表示
+ls -a
+  ドットから始まるfile・directory名のものも表示する
+
+<h4>catコマンド</h4>
+cat FILE
+  FILEの内容を表示する
+<h4>lessコマンド</h4>
+less FILE
+  FILEの内容を表示する (１画面ずつ), qで終了
+
+<h4>cpコマンド</h4>
+cp FILE1 FILE2
+  FILE1をFILE2という名前でコピー
+cp -r DIR1 DIR2
+  directoryのコピー
+
+<h4>mvコマンド</h4>
+mv FILE DIR
+  FILEをDIR内に移動
+mv FILE1 FILE2
+  ファイル名をFILE1からFILE2に変更する
+
+<h4>rmコマンド</h4>
+rm FILE
+  FILEを削除する
+rm -r DIR
+  DIRを削除する
+
+<h4>mkdirコマンド</h4>
+mkdir DIR
+  DIRを作製する
+
+
+
+<hr>
+<h3>CLASS 3</h3>
+# commmandの入出力
+標準入力: キーボード (default)
+標準出力: 端末画面 (default)
+標準エラー出力: 端末画面 (default)
+
+# 入力元・出力先の切替え (=リダイレクト)
+command > FILE
+  command実行結果の出力先を標準出力からFILEにリダイレクト
+command >> FILE
+  command実行結果の出力先を標準出力からFILE末尾に追記リダイレクト
+command 2> FILE
+  command実行時の標準エラー出力をFILEにリダイレクト
+
+# 入力元・出力先の切替えによるcommand同士の連携 (=パイプ)
+command
+
+# editor
+
+
+# 変数
+
+
+# echo
+
+# 実行権限・スクリプト作製/alias
+
+<hr>
+<h3>CLASS 4: FILTER</h3>
+tr
+wc
+grep
+sed
+sort
+head
+tail
+seq
+while/read
+$(())
+
+<hr>
+<hr>
+<h2>20221018</h2>
+<h3>CLASS 5</h3>
+gzip
+tar
+curl
+wget
+
+<hr>
+<h3>CLASS6: awk</h3>
 <p>
 全従業員の月額給料データ
 1: 名前<br>
@@ -23,7 +151,6 @@ Suzuki    1200 180
 <p> [2] 働かなかった従業員の名前は？
 <p> [3] 
 
-<hr>
 
 <h4> ANSWER [1] </h4>
 <pre>
@@ -35,4 +162,14 @@ Suzuki    1200 180
 <pre>
   cat data | awk '$3==0{print $1}'
 </pre>
+
+
+<hr>
+<h3>CLASS7: SCRIPTの作製</h3>
+<h4>tm</h4>
+<h4>reverse complement</h4>
+
+<hr>
+<h3>CLASS8: RNA-seq</h3>
+
 
