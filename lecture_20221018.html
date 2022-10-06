@@ -2,6 +2,10 @@
 <meta charset="utf-8">
 <style>
 
+:root{
+  max-width: 1000px;
+}
+
 .cmdbox {
 	color: #FFFFFF;
 	background-color: #474749;
@@ -11,15 +15,16 @@
 
 .output {
 	color: #ffffff;
-	background-color: #375882;
+	background-color: #a7c1e5;
 	overflow: auto;
 	padding: 10px;
 }
 
 </style>
 
+
 <h2>20221018 13:00-17:00</h2>
-<h3>第1講(13:00-13:50) </h3>
+<h3>LECTURE 1</h3>
 <h4>CUI/GUIとは</h4>
 <ul>
 <li>UI(User Interface): 人がコンピュータを操作する/コンピュータが人に情報を見せる仕組み
@@ -28,6 +33,11 @@
 <li>CUI: Character UI, 
     ターミナル(端末)と呼ばれるソフトウェア上でキーボードからcommandを入力して操作
 </ul>
+
+<figure>
+  <img src="GUI.png">
+  <img src="CUI.png">
+</figure>
 <br>
 
 
@@ -46,7 +56,7 @@
 </ul>
 
 <hr>
-<h3>第2講(14:00-14:50): FILE/DIRECTORYの操作</h3>
+<h3>LECTURE 2: FILE/DIRECTORYの操作</h3>
 
 <ul>
 <li>file・directoryは<b>階層構造</b>で配置されている
@@ -79,10 +89,10 @@ make directoryの意味. 指定名のdirectoryを作る.
                         # mkdir /home/tom/HIGO というように絶対パス指定でもOK
                         # mkdir ~/HIGO とも書ける, "~"はhome directoryに置換される
                         # 因みに"#"以下は行末までコメント(コマンドの一部でない)として扱われる
-  $ mkdir HIGO/class2   # "HIGO" directory配下に"class2" directoryを作製
-                        # mkdir -p HIGO/class2 という風に-pオプションを使えば
-                          HIGO directoryが存在しなくても両方のdirectoryを一度
-                          に作製することができる.
+  $ mkdir HIGO/lecture2 # "HIGO" directory配下に"lecture2" directoryを作製
+                        # mkdir -p HIGO/lecture2 という風に-pオプションを使えば
+                        #  HIGO directoryが存在しなくても両方のdirectoryを一度
+                        #  に作製することができる.
 </pre>
 <br>
 
@@ -92,11 +102,11 @@ make directoryの意味. 指定名のdirectoryを作る.
 
 Change Directoryの意味. Current directoryの移動に使用.
 <pre class="cmdbox">
-  $ cd HIGO/class2
+  $ cd HIGO/lecture2
   $ pwd
 </pre>
 <pre class="output">
-  /home/tom/HIGO/class2
+  /home/tom/HIGO/lecture2
 </pre>
 
 <pre class="cmdbox">
@@ -124,11 +134,11 @@ Change Directoryの意味. Current directoryの移動に使用.
 </pre>
 
 <pre class="cmdbox">
-  $ cd ~/HIGO/class2       # 当然、絶対パスでも指定可能
+  $ cd ~/HIGO/lecture2     # 当然、絶対パスでも指定可能
   $ pwd
 </pre>
 <pre class="output">
-  /home/tom/HIGO/class2
+  /home/tom/HIGO/lecture2
 </pre>
 <br>
 
@@ -177,7 +187,7 @@ file内容を連結(Catenation)表示する
   $ echo aaa > file1            # "aaa"という内容のファイルfile1を作製
   $ echo bbb > file2            # "bbb"という内容のファイルfile2を作製
   $ cat file1 file2 > file3     # file1 file2の順でファイル内容を連結した
-                                  file3を作製
+                                # file3を作製
   $ cat file3
 </pre>
 <pre class="output">
@@ -204,9 +214,9 @@ Copyの意味. file・directoryを複製する.
 </pre>
 
 <pre class="cmdbox">
-  $ cp -r . ../class2_copy    # directoryを複製するときは-r オプションが必要
-                              # "."はこのdirectoryの意味
-  $ ls ../class2_copy
+  $ cp -r . ../lecture2_copy    # directoryを複製するときは-r オプションが必要
+                                # "."はこのdirectoryの意味
+  $ ls ../lecture2_copy
 </pre>
 <pre class="output">
   file1 file2 file3 file4
@@ -226,14 +236,14 @@ moveの意味. fileを別のdirectory配下に移動.
   file1 file2 file3 file4 file5
 </pre>
 <pre class="cmdbox">
-  $ mv file5 ../class2_copy
+  $ mv file5 ../lecture2_copy
   $ ls
 </pre>
 <pre class="output">
   file1 file2 file3 file4
 </pre>
 <pre class="cmdbox">
-  $ ls ../class2_copy
+  $ ls ../lecture2_copy
 </pre>
 <pre class="output">
   file1 file2 file3 file4 file5
@@ -273,38 +283,72 @@ removeの意味. file・directoryの削除.
 
 
 <pre class="cmdbox">
-  $ rm -r ../class2_copy     # directoryを削除する際は-r オプションをつける.
+  $ rm -r ../lecture2_copy     # directoryを削除する際は-r オプションをつける.
   $ ls ..
 </pre>
 <pre class="output">
-  class2
+  lecture2
 </pre>
 <br>
 
 
 
 <hr>
-<h3>第3講(15:00-15:50)</h3>
+<h3> LECTURE 3</h3>
+<style>
+  .cls3_container{
+	  display: flex;
+	}
+
+  .cls3_box_A{
+	  flex: 0 0 600px;
+	}
+  
+	.cls3_box_B{
+	  flex: 0 0 400px;
+	}
+</style>
+
+
+
 
 まずは準備
 <pre class="cmdbox">
-  $ mkdir ~/HIGO/class3
-  $ cd    ~/HIGO/class3
+  $ mkdir ~/HIGO/lecture3
+  $ cd    ~/HIGO/lecture3
 </pre>
 <br>
 
 
 
 <h4>commmandの入出力</h4>
+<div class="cls3_container">
+<div class="cls3_box_A">
 <ul>
   <li><b>標準入力</b>:       キーボード (default)
   <li><b>標準出力</b>:       端末画面 (default)
   <li><b>標準エラー出力</b>: 端末画面 (default)
 </ul>
+</div>
 
+<figure class="cls3_box_B">
+<img src="STDIN.png">
+</figure>
+</div>
+
+
+<div class="cls3_container">
+<div class="cls3_box_A">
 <h4>入力元・出力先の切替え (=<b>リダイレクト</b>) </h4>
 
 command実行結果の出力先を<b>標準出力からFILEに</b>リダイレクト<br>
+</div>
+
+<figure class="cls3_box_B">
+<img src="STDIN1.png">
+</figure>
+</div>
+
 <pre class="cmdbox">
   $ command > FILE
 </pre>
@@ -363,7 +407,17 @@ command実行結果の出力先を<b>標準出力からFILEに</b>リダイレ�
 
 
 
+<div class="cls3_container">
+<div class="cls3_box_A">
+<h4>入力元・出力先の切替え (=<b>リダイレクト</b>) </h4>
+
 command実行時の<b>標準エラー出力</b>をFILEにリダイレクト
+</div>
+<figure class="cls3_box_B">
+  <img src="STDIN2.png">
+</figure>
+</div>
+
 <pre class="cmdbox">
   $ command 2> FILE      # 2と>の間に空白がないように
 </pre>
@@ -575,16 +629,159 @@ PATH=<b>~/bin:</b>/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin
 
 
 <hr>
-<h3>第4講(16:00-16:50): FILTER</h3>
+<h3>LECTURE 4: FILTER</h3>
 
 <h4>trコマンド</h4>
+
+文字変換/文字削除
+<pre class="cmdbox">
+  $ base=atgcnATGCN
+  $ echo $base | tr 'a' 'A'         # aをAに変換する
+</pre>
+<pre class="output">
+  AtgcnATGCN
+</pre>
+
+<pre class="cmdbox">
+  $ echo $base | tr 'a-z' 'A-Z'     # 小文字を大文字に変換する
+</pre>
+<pre class="output">
+  ATGCNATGCN
+</pre>
+
+<pre class="cmdbox">
+  $ echo $base | tr -d 'nN'         # nとNを除く
+</pre>
+<pre class="output">
+  atgcATGC
+</pre>
+
+<pre class="cmdbox">
+  $ echo $base | tr -dc 'atgcATGC'  # atgcATGC以外の文字を除く
+</pre>
+<pre class="output">
+  atgcATGC
+</pre>
+<br>
+
+
+
 <h4>wcコマンド</h4>
-<h4>grepコマンド</h4>
-<h4>sedコマンド</h4>
-<h4>sortコマンド</h4>
+
+文字数・行数を出力
+<pre class="cmdbox">
+  $ echo $base | wc -m      # -m オプションを指定すると文字数を出力
+</pre>
+<pre class="output">
+  11   <=== echoコマンドの出力は目には見えぬが行末に改行文字(\n)を含むため +1
+</pre>
+
+<pre class="cmdbox">
+  $ echo -n $base | wc -m      # (解決策1): -n オプションを指定して行末の改行文字出力を抑制
+</pre>
+<pre class="output">
+  10
+</pre>
+
+<pre class="cmdbox">
+  $ echo $base | tr -d '\n' | wc -m   # (解決策2): 改行文字出力を除く
+</pre>
+<pre class="output">
+  10
+</pre>
+
+<pre class="cmdbox">
+  $ seq 5 | wc -l      # -l オプションを指定すると行数を出力
+</pre>
+<pre class="output">
+  5
+</pre>
+<br>
+
+
+
 <h4>headコマンド</h4>
+
+fileの先頭から指定した行数を出力
+<pre class="cmdbox">
+  $ seq 15 | head      # defaultでは10行分出力
+</pre>
+<pre class="output">
+  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+  10
+</pre>
+<pre class="cmdbox">
+  $ seq 15 | head -n 3
+</pre>
+<pre class="output">
+  1
+  2
+  3
+</pre>
+<br>
+
+
+
+
 <h4>tailコマンド</h4>
+
+fileの末端から指定した行数を出力
+<pre class="cmdbox">
+  $ seq 15 | tail -n 3
+</pre>
+<pre class="output">
+  13
+  14
+  15
+</pre>
+<pre class="cmdbox">
+  $ seq 5 | tail -n +2       # 2行目以降を出力
+</pre>
+<pre class="output">
+  2
+  3
+  4
+  5
+</pre>
+<br>
+
+
+
+<h4>grepコマンド</h4>
+
+
+
+指定したキーワードにマッチした行を出力
+
+
+
+<h4>sortコマンド</h4>
+
+
+
+並び替え
 <h4>while read文</h4>
+
+
+
+行ごとに操作
+
+
+
+<h4>sedコマンド</h4>
+
+
+
+
+
 
 <br>
 <hr>
@@ -593,7 +790,7 @@ PATH=<b>~/bin:</b>/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin
 <br>
 
 <h2>20221019</h2>
-<h3>第5講(13:00-13:50)</h3>
+<h3>LECTURE 5</h3>
 <h4>gzip</h4>
 <h4>tar</h4>
 <h4>curl</h4>
@@ -603,7 +800,7 @@ PATH=<b>~/bin:</b>/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin
 
 
 <hr>
-<h3>第6講(14:00-14:50): AWK</h3>
+<h3>LECTURE 6: AWK</h3>
 
 
 <p>
@@ -649,7 +846,7 @@ Suzuki    1200 180
 
 
 <hr>
-<h3>第7講(15:00-15:50): SCRIPTの作製</h3>
+<h3>LECTURE 7: SCRIPT作製</h3>
 <h4>tm</h4>
 <h4>reverse complement</h4>
 
@@ -657,6 +854,5 @@ Suzuki    1200 180
 
 
 <hr>
-<h3>第8講(16:00-16:50): RNA-seq</h3>
-
+<h3>LECTURE 8: RNA-seq</h3>
 
