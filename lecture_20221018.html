@@ -35,8 +35,8 @@
 </ul>
 
 <figure>
-  <img src="GUI.png">
-  <img src="CUI.png">
+  <img src="images/GUI.png">
+  <img src="images/CUI.png">
 </figure>
 <br>
 
@@ -332,7 +332,7 @@ removeの意味. file・directoryの削除.
 </div>
 
 <figure class="cls3_box_B">
-<img src="STDIN.png">
+<img src="images/STDIN.png">
 </figure>
 </div>
 
@@ -345,7 +345,7 @@ command実行結果の出力先を<b>標準出力からFILEに</b>リダイレ�
 </div>
 
 <figure class="cls3_box_B">
-<img src="STDIN1.png">
+<img src="images/STDIN1.png">
 </figure>
 </div>
 
@@ -414,7 +414,7 @@ command実行結果の出力先を<b>標準出力からFILEに</b>リダイレ�
 command実行時の<b>標準エラー出力</b>をFILEにリダイレクト
 </div>
 <figure class="cls3_box_B">
-  <img src="STDIN2.png">
+  <img src="images/STDIN2.png">
 </figure>
 </div>
 
@@ -498,13 +498,13 @@ command実行時の<b>標準エラー出力</b>をFILEにリダイレクト
 </pre>
 <pre class="output">
   ORIGINAL_SEQ is atgc
-  REVERSE_SEQQ is cgta
+  REVERSE_SEQ is cgta
 </pre>
 <br>
 
 
 
-<h4>TEXT editor</h4>
+<h4>TEXT editor: VIM</h4>
 <pre class="cmdbox">
   $ vim hoge           # "hoge"という名前のファイルをvimで編集する.
 </pre>
@@ -537,8 +537,8 @@ VIMには<b>ノーマルモード</b>と<b>インサートモード</b>がある
 
 <ol>
   <li> scriptファイルを作製する.
-  <li> そのファイルに実行権限を付与する.
-  <li> そのファイルをPATHの通ったdirectory下に配置する.
+  <li> そのファイルに<b>実行権限</b>を付与する.
+  <li> そのファイルを<b>PATH</b>の通ったdirectory下に配置する.
 </ol>
 <br>
 
@@ -547,7 +547,7 @@ VIMには<b>ノーマルモード</b>と<b>インサートモード</b>がある
   $ vim reverse_seq
 </pre>
 
-&nbsp;&nbsp;<h6>~/HIGO/class3/reverse_seq</h6>
+&nbsp;&nbsp;<h6>~/HIGO/lecture3/reverse_seq</h6>
 <pre class="cmdbox">
   #!/bin/sh
 
@@ -777,82 +777,3 @@ fileの末端から指定した行数を出力
 
 
 <h4>sedコマンド</h4>
-
-
-
-
-
-
-<br>
-<hr>
-<hr>
-<hr>
-<br>
-
-<h2>20221019</h2>
-<h3>LECTURE 5</h3>
-<h4>gzip</h4>
-<h4>tar</h4>
-<h4>curl</h4>
-<h4>wget</h4>
-
-
-
-
-<hr>
-<h3>LECTURE 6: AWK</h3>
-
-
-<p>
-<pre class="cmdbox">
-  $ cat employees
-  
-    # 全従業員の月額給料データ
-    #   1: 名前
-    #   2: 時給 (円/hr)
-    #   3: 労働時間 (hr/month)
-</pre>
-
-<pre class="output">
-Sato      1300 225
-Hirai      900 120
-Nakamura   800   0
-Ito       2500 205
-Kato      1250 275
-Suzuki    1200 180
-</pre>
-
-<b4>問題</b4>
-<p> [1] ゼロ時間より多く働いた従業員の名前と賃金は？
-<p> [2] 働かなかった従業員の名前は？
-<p> [3] 
-
-
-<h4> ANSWER </h4>
-
-<p>[1]
-<pre class="cmdbox">
-  $  cat data | awk '$3>0{print $1, $2*$3}'
-</pre>
-<br>
-
-<p> [2]
-<pre class="cmdbox">
-  $  cat data | awk '$3==0{print $1}'
-</pre>
-<br>
-
-
-
-
-<hr>
-<h3>LECTURE 7: SCRIPT作製</h3>
-<h4>tm</h4>
-<h4>reverse complement</h4>
-
-
-
-
-<hr>
-<h3>LECTURE 8: RNA-seq</h3>
-
