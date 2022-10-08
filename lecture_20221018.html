@@ -24,7 +24,128 @@
 
 
 <h2>20221018 13:00-17:00</h2>
-<h3>LECTURE 1</h3>
+<ul>
+  <li><a href="#l1">go to LECTURE1</a>
+  <li><a href="#l2">go to LECTURE2</a>
+  <li><a href="#l3">go to LECTURE3</a>
+  <li><a href="#l4">go to LECTURE4</a>
+</ul><hr>
+
+
+
+
+<h3><a id="l1">LECTURE 1</a></h3>
+
+
+
+<h4>前準備 (Windows user)</h4>
+以下の手順に従いWindowsにLinuxをインストールする (WSL)<br><br>
+
+Versionの確認<br>
+<ol>
+  <li> WINロゴキー + rキー と打鍵
+  <li> 「winver」と入力
+</ol><br>
+
+Versionの更新<br>
+<ol>
+	<li> [スタート]
+  <li> [設定]
+  <li> [Windows Update]
+  <li> [更新プログラムの確認]
+</ol><br>
+
+
+
+<h5>Windows10 version 2004 (build 19041)以降またはWindows11の場合<br> 
+=== WSL2のインストール === </h5>
+<ol>
+  <li> WINロゴキー + rキー とタイプ
+  <li> [powershell] と入力
+	<li> Ctrl-Shift-Enter とし管理者としてPowershellを起動
+	<li> [wsl -l -o] と入力して, Linux distributionの一覧確認
+	<li> wsl --install -d [Distrubution_name]  (今回はUbuntu20.04)
+  <li> Enter new UNIX username:と聞かれるので任意のユーザー名 (今回はtomとする)を入力
+  <li> New Password:と聞かれるのでパスワードを入力 (画面表示はされない).
+  <li> Retype new Password:と聞かれるので再度入力.
+</ol><br>
+
+
+<h5>Windows10 version 2004 (build 19041)未満の場合<br>
+=== WSLのインストール === </h5>
+<ol>
+  <li>  WINロゴキー + rキー とタイプ
+  <li> [control] と入力しEnter
+  <li> [プログラム]
+  <li> [プログラムと機能]
+  <li> [Windowsの機能の有効化・無効化
+  <li> [Linux用Windowsサブシステム]にチェックを追加
+  <li> 再起動
+  <li> Microsoft storeアプリからUbuntu 20.04LTSをインストール
+  <li> Enter new UNIX username:と聞かれるので任意のユーザー名 (今回はtomとする)を入力
+  <li> New Password:と聞かれるのでパスワードを入力 (画面表示はされない).
+  <li> Retype new Password:と聞かれるので再度入力.
+</ol><br>
+
+
+
+<h5>Install後の前準備等</h5>
+<ul>
+  <li> Linux側のfolderをExplorerですぐに見つけられるようにする.
+    <ol>
+      <li> WINロゴキー + eキー とタイプし、Explorerを起動
+      <li> 検索窓に　[\\wsl$]　とタイプ 
+      <li> [Ubuntu] / [home] / [tom] の順にfolderを移動
+      <li> [tom] をクリックして選択した状態で右クリック
+      <li> [クイックアクセスにピン留めする]
+    </ol>
+	<li> スリープの解除 (今回は特に必要ないが)
+    <ol>
+      <li> [スタート]
+      <li> [設定]
+      <li> [システム]
+      <li> [電源とバッテリー]　の項目を必要に応じてスリープしないよう設定
+    </ol>
+  <li> WSL上での前準備 (日本語環境)
+    <ol>
+      <li> アプリの一覧などから新たにインストールしたUbuntuを見つけ、クリック 
+      <li> sudo apt update 
+      <li> Passwordを求められるので入力
+      <li> sudo apt upgrade -y
+      <li> sudo apt autoremove -y
+      <li> sudo apt language-pack-ja
+      <li> sudo update-locale LANG=ja._JP.UTF8
+      <li> exit 
+      <li> 再度Ubuntuを起動して、日本語表示可能か確認.　駄目なら以下に進む.
+      <li> 端末上で右クリック
+      <li> [プロパティ]
+      <li> [フォント]
+      <li> MSゴシックなどの日本語表示可能なフォントを選択.
+    </ol>
+  <li> 足りないパッケージがあれば追加
+    <ol>
+      <li> type vim curl wget git pigz  とタイプしてインストール済みかどうか確認 
+      <li> sudo apt install pigz     (もし存在しない場合) 
+    </ol>
+</ul>
+
+
+
+<h4>前準備/Homebrewのインストールなど (Mac user)</h4>
+  
+<ol>
+  <li> 検索窓からterminalを探す
+  <li> xcode-select --install    # Homebrewの導入に必要なcommnad line developer tool
+  <li> curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+  <li> sh install.sh
+  <li> brew update
+  <li> brew upgrade
+  <li> type vim curl wget git pigz とタイプしてインストール済みかどうか確認 
+  <li> brew install pigz           (もし存在しない場合) 
+</ol>
+
+
+
 <h4>CUI/GUIとは</h4>
 <ul>
 <li>UI(User Interface): 人がコンピュータを操作する/コンピュータが人に情報を見せる仕組み
@@ -56,7 +177,7 @@
 </ul>
 
 <hr>
-<h3>LECTURE 2: FILE/DIRECTORYの操作</h3>
+<h3><a id="l2">LECTURE 2: FILE/DIRECTORYの操作</a></h3>
 
 <ul>
 <li>file・directoryは<b>階層構造</b>で配置されている
@@ -294,7 +415,7 @@ removeの意味. file・directoryの削除.
 
 
 <hr>
-<h3> LECTURE 3</h3>
+<h3><a id="l3">LECTURE 3</a></h3>
 <style>
   .cls3_container{
 	  display: flex;
@@ -629,7 +750,7 @@ PATH=<b>~/bin:</b>/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin
 
 
 <hr>
-<h3>LECTURE 4: FILTER</h3>
+<h3><a id="l4">LECTURE 4: FILTER</a></h3>
 
 <h4>trコマンド</h4>
 
