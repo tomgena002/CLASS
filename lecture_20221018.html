@@ -23,7 +23,7 @@
 </style>
 
 
-<h2>20221018 13:00-17:00</h2>
+<h2>20221018: UNIX command入門</h2>
 <ul>
   <li><a href="#l1">go to LECTURE1</a>
   <li><a href="#l2">go to LECTURE2</a>
@@ -145,6 +145,10 @@ Versionの更新<br>
 </ol>
 
 
+
+<h4>次講義以降で使うデータ</h4>
+
+USB経由でSRC20221018-19をhome directoryに配置する.
 
 <h4>CUI/GUIとは</h4>
 <ul>
@@ -740,7 +744,7 @@ PATH=<b>~/bin:</b>/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin
 
 
 <h4>練習問題</h4>
-上と同様の引数を与えたときに以下を出力するコマンド"reverse_seq_2"を作製せよ.
+上と同様の引数を与えたときに以下のように出力するコマンド"reverse_seq_2"を作製せよ.
 <br>
 &nbsp;seq_id_1_original atacgtag<br>
 &nbsp;seq_id_1_reverse gatgcata<br>
@@ -749,8 +753,18 @@ PATH=<b>~/bin:</b>/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin
 
 
 
+
+
 <hr>
 <h3><a id="l4">LECTURE 4: FILTER</a></h3>
+
+<h4>前準備</h4>
+<pre class="cmdbox">
+  $ mkdir ~/HIGO/lecture4
+  $ cd    ~/HIGO/lecture4
+  $ mv    ~/SRC_20221018-19/data/lecture_4_* .     # *は任意の意味
+</pre>
+
 
 <h4>trコマンド</h4>
 
@@ -881,6 +895,62 @@ fileの末端から指定した行数を出力
 
 
 指定したキーワードにマッチした行を出力
+<pre class="cmdbox">
+  $ cat lecture_4_1 | head                      # 1: Ensembl_Gene_ID 2: Gene_Name
+  $ cat lecture_4_1 | wc -l                     # 遺伝子総数: 60605
+  $ cat lecture_4_1 | grep FGF                  # FGFという語を含む行
+  $ cat lecture_4_1 | grep FGF | less           # ゆっくりと確認
+  $ cat lecture_4_1 | grep FGF | grep -v FGFR   # -v: FGFRを除外
+  $ cat lecture_4_1 | grep FGF[0-9]             # FGFの直後は数字
+</pre>
+
+<pre class="cmdbox">
+  $ cat lecture_4_2 
+</pre>
+<pre class="output">
+  This is a banana
+  Banana is sweet
+  sweet banana
+  banana juice
+  apple juice
+</pre>
+
+<pre class="cmdbox">
+  $ cat lecture_4_2 | grep banana
+</pre>
+<pre class="output">
+  This is a banana
+  sweet banana
+  banana juice
+</pre>
+
+<pre class="cmdbox">
+  $ cat lecture_4_2 | grep -i banana     # -i: 大文字小文字を区別しない.
+</pre>
+<pre class="output">
+  This is a banana
+  Banana is sweet        <=== Bananaにもマッチ
+  sweet banana
+  banana juice
+</pre>
+
+<pre class="cmdbox">
+  $ cat lecture_4_2 | grep -i ^banana     # 行始でマッチ
+</pre>
+<pre class="output">
+  Banana is sweet
+  banana juice
+</pre>
+
+<pre class="cmdbox">
+  $ cat lecture_4_2 | grep banana$        # 行末でマッチ
+</pre>
+<pre class="output">
+  This is a banana
+  sweet banana
+</pre>
+
+
 
 
 
@@ -888,13 +958,257 @@ fileの末端から指定した行数を出力
 
 
 
-並び替え
+行の並び替え
+<pre class="cmdbox">
+  $ cat lecture_4_3  
+</pre>
+<pre class="output">
+K
+i
+n
+g
+k
+o
+n
+g
+2
+</pre>
+
+<pre class="cmdbox">
+  $ cat lecture_4_3 | sort       # Ascii code順 (man asciiで確認できる.)
+</pre>
+<pre class="output">
+2
+K
+g
+g
+i
+k
+n
+n
+o
+</pre>
+
+<pre class="cmdbox">
+  $ cat lecture_4_3 | sort -f    # -f: 大文字小文字を区別しない. 
+</pre>
+<pre class="output">
+2
+g
+g
+i
+K
+k
+n
+n
+o
+</pre>
+
+<pre class="cmdbox">
+  $ cat lecture_4_3 | sort -u    # -u: ソート後、重複を除く. 
+</pre>
+<pre class="output">
+2
+K
+g
+i
+k
+n
+o
+</pre>
+
+<pre class="cmdbox">
+  $ cat lecture_4_4      # 複数列からなるデータ
+</pre>
+<pre class="output">
+b 8
+a 1
+n 11
+a 4
+n 2
+a 12
+</pre>
+
+<pre class="cmdbox">
+  $ cat lecture_4_4 | sort -k 1,1      # 1列目でソート
+</pre>
+<pre class="output">
+a 1
+a 12
+a 4
+b 8
+n 11
+n 2
+</pre>
+
+<pre class="cmdbox">
+  $ cat lecture_4_4 | sort -k 2,2      # 2列目でソート
+</pre>
+<pre class="output">
+a 1
+n 11
+a 12
+n 2
+a 4
+b 8
+</pre>
+
+<pre class="cmdbox">
+  $ cat lecture_4_4 | sort -k 2n,2      # 2列目を数値としてソート
+</pre>
+<pre class="output">
+a 1
+n 2
+a 4
+b 8
+n 11
+a 12
+</pre>
+
+<pre class="cmdbox">
+  $ cat lecture_4_4 | sort -k 2nr,2      # 2列目を数値としてソート(降順)
+</pre>
+<pre class="output">
+a 12
+n 11
+b 8
+a 4
+n 2
+a 1
+</pre>
+
+<pre class="cmdbox">
+  $ cat lecture_4_4 | tr ' ' ',' | sort -t',' -k 2n,2      # ','区切りの入力の場合
+</pre>
+<pre class="output">
+a,1
+n,2
+a,4
+b,8
+n,11
+a,12
+</pre>
+
+
+
 <h4>while read文</h4>
 
 
 
 行ごとに操作
+<pre class="cmdbox">
+  $ cat lecture_4_5
+</pre>
+<pre class="output">
+  tctagacaggtttagga
+  tccaagtgggcacggctcgtatg
+  taaaacacacaccccctttaa
+  ttaaatgttcttgtatgcaagg
+  ataatcgccctacacga
+</pre><br><br>
+
+各行で示された塩基配列の長さは?
+<pre class="cmdbox">
+  $ cat lecture_4_5 | while read i ; do echo -n $i |wc -m ; done  
+</pre>
+<pre class="output">
+  17
+  23
+  21
+  22
+  17
+</pre><br>
+
+各行で示された塩基配列の長さを各配列と合わせて出力せよ.
+<pre class="cmdbox">
+  $ cat lecture_4_5 | 
+  # while read seq
+  # do 
+  # length=$(echo -n $i | wc -m) 
+  # echo $seq $length
+  # done  
+
+</pre>
+<pre class="output">
+  tctagacaggtttagga 17
+  tccaagtgggcacggctcgtatg 23
+  taaaacacacaccccctttaa 21
+  ttaaatgttcttgtatgcaagg 22
+  ataatcgccctacacga 17
+</pre><br>
+
+
+
+<pre class="cmdbox">
+  $ cat lecture_4_6    # 複数列データ
+</pre>
+<pre class="output">
+  2022 1  1
+  2022 4  1
+  2022 5 15
+  2022 8 23
+</pre>
+
+<pre class="cmdbox">
+  $ cat lecture_4_6 | while read i j k ; do echo $k/$j/$i ; done
+</pre>
+<pre class="output">
+  1/1/2022
+  1/4/2022
+  15/5/2022
+  23/8/2022
+</pre><br>
+
 
 
 
 <h4>sedコマンド</h4>
+
+
+
+文字列置換
+<pre class="cmdbox">
+  $ cat lecture_4_7
+</pre>
+<pre class="output">
+motif1.tiff
+motif2.tif
+motif3.tiff
+</pre>
+
+<pre class="cmdbox">
+  $ cat lecture_4_7 | sed 's/tiff/tif/'   # tiffをtifに変換
+</pre>
+<pre class="output">
+  motif1.tif
+  motif2.tif
+  motif3.tif
+</pre><br>
+
+<pre class="cmdbox">
+  $ cat lecture_4_7 | sed 's/tif/tiff/'    # 行先頭から1回以内のマッチ/置換
+</pre>
+<pre class="output">
+  motiff1.tiff
+  motiff2.tif
+  motiff3.tiff
+</pre><br>
+
+<pre class="cmdbox">
+  $ cat lecture_4_7 | sed 's/tif/tiff/g'   # 行中で何回でも マッチ/置換
+</pre>
+<pre class="output">
+  motiff1.tifff
+  motiff2.tiff
+  motiff3.tifff
+</pre><br>
+
+<pre class="cmdbox">
+  $ cat lecture_4_7 | sed 's/tif$/tiff/'    # 行端のtifにのみマッチ
+</pre>
+<pre class="output">
+  motif1.tiff
+  motif2.tiff
+  motif3.tiff
+</pre><br>
+
