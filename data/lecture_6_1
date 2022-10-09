@@ -1,6 +1,18 @@
-Sato      1300 225
-Hirai      900 120
-Nakamura   800   0
-Ito       2500 205
-Kato      1250 275
-Suzuki    1200 180
+#!/bin/sh
+
+MUS=30
+HS=41
+URL_M=http://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse
+URL_H=http://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human
+
+# GTF
+curl -O $URL_M/release_M$MUS/gencode.vM$MUS.annotation.gtf.gz
+curl -O $URL_H/release_$HS/gencode.v$HS.annotation.gtf.gz
+
+# TRANSCRIPTOME
+curl -O $URL_M/release_M$MUS/gencode.vM$MUS.transcripts.fa.gz
+curl -O $URL_H/release_$HS/gencode.v$HS.transcripts.fa.gz
+
+# GENOME
+curl -O $URL_M/release_M$MUS/GRCm39.primary_assembly.genome.fa.gz
+curl -O $URL_H/release_$HS/GRCh38.primary_assembly.genome.fa.gz

@@ -35,17 +35,10 @@
 
 
 
-<h3><a id="l5">LECTURE 5</a></h3>
-<h4>gzip</h4>
-<h4>tar</h4>
-<h4>curl</h4>
-<h4>wget</h4>
-
-
 
 
 <hr>
-<h3><a id="l6">LECTURE 6: AWK</a></h3>
+<h3><a id="l5">LECTURE 5: AWK</a></h3>
 
 
 <p>
@@ -89,12 +82,89 @@ Suzuki    1200 180
 
 
 
+<h3><a id="l6">LECTURE 6</a></h3>
+
+
+
+ネットワーク越しにファイルを入手する.
+<h4>curlコマンド</h4>
+
+形式
+<pre class="cmdbox">
+  $ curl -O <URL>                # リクエスト先のファイル名で出力.
+  $ curl -o <filename> <URL>     # 指定したファイル名で出力.
+</pre>
+
+
+
+<h4>GENCODEからリファレンスデータの取得</h4>
+
+
+<img src="images/G-TX-ANN.png"><hr>
+
+
+これらのファイルを簡単に入手できるよう以下のようなスクリプトを作製する.
+<pre class="cmdbox">
+  $ cat lecture_6_1
+</pre>
+<pre class="output">
+  #!/bin/sh
+
+  MUS=30
+  HS=41
+  URL_M=http://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse
+  URL_H=http://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human
+
+  # GTF
+  curl -O $URL_M/release_M$MUS/gencode.vM$MUS.annotation.gtf.gz
+  curl -O $URL_H/release_$HS/gencode.v$HS.annotation.gtf.gz
+
+  # TRANSCRIPTOME
+  curl -O $URL_M/release_M$MUS/gencode.vM$MUS.transcripts.fa.gz
+  curl -O $URL_H/release_$HS/gencode.v$HS.transcripts.fa.gz
+
+  # GENOME
+  curl -O $URL_M/release_M$MUS/GRCm39.primary_assembly.genome.fa.gz
+  curl -O $URL_H/release_$HS/GRCh38.primary_assembly.genome.fa.gz
+</pre><hr>
+
+今回はマウスのアノテーションファイルだけを入手するため、<br>
+その他の行をコメントアウトしておく.
+<pre class="output">
+  #!/bin/sh
+
+  MUS=30
+  #HS=41
+  URL_M=http://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse
+  #URL_H=http://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human
+
+  # GTF
+  curl -O $URL_M/release_M$MUS/gencode.vM$MUS.annotation.gtf.gz
+  #curl -O $URL_H/release_$HS/gencode.v$HS.annotation.gtf.gz
+
+  # TRANSCRIPTOME
+  #curl -O $URL_M/release_M$MUS/gencode.vM$MUS.transcripts.fa.gz
+  #curl -O $URL_H/release_$HS/gencode.v$HS.transcripts.fa.gz
+
+  # GENOME
+  #curl -O $URL_M/release_M$MUS/GRCm39.primary_assembly.genome.fa.gz
+  #curl -O $URL_H/release_$HS/GRCh38.primary_assembly.genome.fa.gz
+</pre>
+<pre class="cmdbox">
+  $ sh lecture_6_1
+</pre><hr>
+
+
+
+<h4>gzipコマンド</h4>
+<h4>tarコマンド</h4>
+
+
 
 <hr>
 <h3><a id="l7">LECTURE 7: SCRIPT作製</a></h3>
 <h4>tm</h4>
 <h4>reverse complement</h4>
-
 
 
 
