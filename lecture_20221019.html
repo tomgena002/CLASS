@@ -40,49 +40,175 @@
 <hr>
 <h3><a id="l5">LECTURE 5: AWK</a></h3>
 
+前準備
+<pre class="cmdbox">
+  $ mkdir ~/HIGO/lecture_5
+  $ cd    ~/HIGO/lecture_5
+  $ cp    ~/SRC_20221018-19/data/lecture_5_* .
+</pre><br>
+
+
+awkプログラムの形式
+<pre class="cmdbox">
+  $ awk 'パターン1{アクション1} パターン2{アクション2} ....'
+</pre><br>
+
+<ul>
+  <li> 各行ごとにパターンにマッチするか調べ、マッチした場合はアクションを実行.
+  <li> 各行ごとにスペース, タブ区切り(デフォルト)で各フィールドに分けて、その値を$1, $2, ...に代入する.
+  <li> 現在行の列数は変数NFに格納されている.
+  <li> 読み込んだファイルデータの行数は変数NRに格納されている.
+</ul>
 
 <p>
 <pre class="cmdbox">
-  $ cat employees
-  
-    # 全従業員の月額給料データ
-    #   1: 名前
-    #   2: 時給 (円/hr)
-    #   3: 労働時間 (hr/month)
+  $ cat lecture_5_1
+
+     # 全従業員の月額給料データ
+     #   1: 名前
+     #   2: 時給 (円/hr)
+     #   3: 労働時間 (hr/month)
 </pre>
 
 <pre class="output">
 Sato      1300 225
 Hirai      900 120
-Nakamura   800   0
-Ito       2500 205
+Morita     800   0
+Morishita 2500 205
 Kato      1250 275
 Suzuki    1200 180
 </pre>
 
-<b4>問題</b4>
-<p> [1] ゼロ時間より多く働いた従業員の名前と賃金は？
-<p> [2] 働かなかった従業員の名前は？
-<p> [3] 
+<p>
+次の問題を考えてみる.
+<ul>
+  <li> [1] ゼロ時間より多く働いた従業員の名前と賃金は？
+  <li> [2] Hiraiさんのデータを出力せよ？
+  <li> [3] Hiraiさん以外のデータを出力せよ？
+  <li> [4] 名前にMoriを含むデータを出力せよ？
+  <li> [5] 従業員に支払う月収の総和を出力せよ？
+</ul><br>
 
-
-<h4> ANSWER </h4>
-
-<p>[1]
+<p>[1]の解答
 <pre class="cmdbox">
-  $  cat data | awk '$3>0{print $1, $2*$3}'
+  $  cat lecture_5_1 | awk '$3>0{print $1, $2*$3}'
+    
+       # パターンは $3>0 
+       # ３列目が0より大きいもののみアクションを実行する.
+
+       # アクションは{print $1, $2*$3}
+       # $2*$3は2列目と3列目を掛け合わせるという意味.
+       # $1と$2*$3の結果を出力するという意味.
+</pre>
+<pre class="output">
+  Sato 292500
+  Hirai 108000
+  Morishita 512500
+  Kato 343750
+  Suzuki 216000
 </pre>
 <br>
 
-<p> [2]
+<p> [2]の解答
 <pre class="cmdbox">
-  $  cat data | awk '$3==0{print $1}'
+  $ cat lecture_5_1 | awk '$1=="Hirai"{print $1, $2, $3}'
+      
+      # $0は行全体の意味で使用されるため以下のように書いてもよい.
+      # cat lecture_5_1 | awk '$1=="Hirai"{print $0}'
+      #
+      # アクションを省略した場合は行全体が出力される.そこで以下のようにも書ける.
+      # cat lecture_5_1 | awk '$1=="Hirai"'
+</pre>
+<pre class="output">
+  Hirai 900 120
 </pre>
 <br>
+
+<p> [3]の解答
+<pre class="cmdbox">
+  $ cat lecture_5_1 | awk '$1!="Hirai"'
+</pre>
+<pre class="output">
+  Sato      1300 225
+  Morita     800   0
+  Morishita 2500 205
+  Kato      1250 275
+  Suzuki    1200 180
+</pre><br>
+
+<p> [4]の解答
+<pre class="cmdbox">
+  $ cat lecture_5_1 | awk '$1~/Mori/'
+</pre>
+<pre class="output">
+  Morita     800   0
+  Morishita 2500 205
+</pre><br>
+
+<p> [5]の解答
+<pre class="cmdbox">
+  $ cat lecture_5_1 | awk '{sum+=$2*$3}END{print sum}'
+</pre>
+<pre class="output">
+  1472750
+</pre><br>
+
+<pre class="cmdbox">
+  $ cat lecture_5_1  | 
+  # awk '{sum+=$2*$3}
+  #   END{print "The sum of salaries is", sum, "yen"}'
+</pre>
+<pre class="output">
+  The sum of salaries is 1472750 yen
+</pre><br>
+
+
+
+
+
+<p>練習問題<br>
+<ol>
+  <li> 月収が300000を越える従業員のデータを出力せよ.
+  <li> 以下のように反応液を調製したいものとする。 
+<pre>
+       Polymerase:         1 ul
+       Buffer:             2 ul
+       DNA:                x ul (= 500 ng)
+       water:       up to 10 ul
+       --------------------------
+       total:             10 ul
+</pre><br>
+	    lecture_5_2のように、各DNAサンプル濃度(ng/ul)が与えられた場合、
+      DNA溶液と水のアプライ量を算出せよ.<br> 
+      (3列目にDNAアプライ量(ul), 4列目に水のアプライ量(ul)を出力せよ.)
+<pre class="cmdbox">
+  $ cat lecture_5_2
+     # 1: sample_name
+     # 2: DNA conc. (ng/ul)
+</pre>
+<pre class="output">
+  dna_1 214.5
+  dna_2 312.7
+  dna_3 252.3
+  dna_4 412.0
+  dna_5 194.2
+</pre>
+</ol>
+
+
+
+
 
 
 
 <h3><a id="l6">LECTURE 6</a></h3>
+
+前準備
+<pre class="cmdbox">
+  $ mkdir ~/HIGO/lecture_6
+  $ cd    ~/HIGO/lecture_6
+  $ cp    ~/SRC_20221018-19/data/lecture_6_* .
+</pre><br>
 
 
 
@@ -91,8 +217,8 @@ Suzuki    1200 180
 
 形式
 <pre class="cmdbox">
-  $ curl -O <URL>                # リクエスト先のファイル名で出力.
-  $ curl -o <filename> <URL>     # 指定したファイル名で出力.
+  $ curl -O URL              # リクエスト先のファイル名で出力.
+  $ curl -o filename URL     # 指定したファイル名で出力.
 </pre>
 
 
@@ -156,8 +282,72 @@ Suzuki    1200 180
 
 
 
-<h4>gzipコマンド</h4>
-<h4>tarコマンド</h4>
+データの圧縮・解答
+<h4>gzip/gunzip/zcatコマンド</h4><br>
+
+gzという拡張子(*.gz)がついてるファイルは通常gzipで圧縮処理されたファイルである.<br>
+
+ファイルサイズの確認
+<pre class="cmdbox">
+	$ ls -l gencode.vM30.annotation.gtf.gz
+</pre>
+<pre class="output">
+  -rw-r--r-- 1 tom tom 29248040 10月  9 21:35 gencode.vM30.annotation.gtf.gz
+</pre><br>
+
+ファイルサイズの確認(より分かりやすい表示)
+<pre class="cmdbox">
+	$ ls -lh gencode.vM30.annotation.gtf.gz
+</pre>
+<pre class="output">
+  -rw-r--r-- 1 tom tom 28M 10月  9 21:35 gencode.vM30.annotation.gtf.gz
+</pre><br>
+
+ファイル内容の表示
+<pre class="cmdbox">
+	$ cat gencode.vM30.annotation.gtf.gz    # 圧縮ファイルなのでよく分からない.
+</pre><br>
+
+圧縮ファイルを解凍
+<pre class="cmdbox">
+	$ gunzip gencode.vM30.annotation.gtf.gz
+</pre><br>
+
+ファイルサイズの確認
+<pre class="cmdbox">
+	$ ls -lh gencode.vM30.annotation.gtf
+</pre>
+<pre class="output">
+  -rw-r--r-- 1 tom tom 868M 10月  9 21:35 gencode.vM30.annotation.gtf
+</pre><br>
+
+ファイル内容の表示
+<pre class="cmdbox">
+	$ cat gencode.vM30.annotation.gtf | head   # ちゃんと読めることを確認.
+</pre><br>
+
+ファイルの圧縮
+<pre class="cmdbox">
+	$ gzip gencode.vM30.annotation.gtf
+</pre><br>
+
+圧縮ファイルのまま扱う.
+<pre class="cmdbox">
+	$ zcat gencode.vM30.annotation.gtf.gz
+</pre>
+<pre class="output">
+##description: evidence-based annotation of the mouse genome (GRCm39), version M30 (Ensembl 107)
+##provider: GENCODE
+##contact: gencode-help@ebi.ac.uk
+##format: gtf
+##date: 2022-05-12
+chr1	HAVANA	gene	3143476	3144545	.	+	.	gene_id "ENSMUSG00000102693.2"; gene_type "TEC"; gene_name "4933401J01Rik"; level 2; mgi_id "MGI:1918292"; havana_gene "OTTMUSG00000049935.1";
+chr1	HAVANA	transcript	3143476	3144545	.	+	.	gene_id "ENSMUSG00000102693.2"; transcript_id "ENSMUST00000193812.2"; gene_type "TEC"; gene_name "4933401J01Rik"; transcript_type "TEC"; transcript_name "4933401J01Rik-201"; level 2; transcript_support_level "NA"; mgi_id "MGI:1918292"; tag "basic"; tag "Ensembl_canonical"; havana_gene "OTTMUSG00000049935.1"; havana_transcript "OTTMUST00000127109.1";
+chr1	HAVANA	exon	3143476	3144545	.	+	.	gene_id "ENSMUSG00000102693.2"; transcript_id "ENSMUST00000193812.2"; gene_type "TEC"; gene_name "4933401J01Rik"; transcript_type "TEC"; transcript_name "4933401J01Rik-201"; exon_number 1; exon_id "ENSMUSE00001343744.2"; level 2; transcript_support_level "NA"; mgi_id "MGI:1918292"; tag "basic"; tag "Ensembl_canonical"; havana_gene "OTTMUSG00000049935.1"; havana_transcript "OTTMUST00000127109.1";
+chr1	ENSEMBL	gene	3172239	3172348	.	+	.	gene_id "ENSMUSG00000064842.3"; gene_type "snRNA"; gene_name "Gm26206"; level 3; mgi_id "MGI:5455983";
+chr1	ENSEMBL	transcript	3172239	3172348	.	+	.	gene_id "ENSMUSG00000064842.3"; transcript_id "ENSMUST00000082908.3"; gene_type "snRNA"; gene_name "Gm26206"; transcript_type "snRNA"; transcript_name "Gm26206-201"; level 3; transcript_support_level "NA"; mgi_id "MGI:5455983"; tag "basic"; tag "Ensembl_canonical";
+</pre><br>
+
 
 
 
