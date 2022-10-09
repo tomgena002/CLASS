@@ -194,10 +194,7 @@ Suzuki    1200 180
   dna_5 194.2
 </pre>
 </ol>
-
-
-
-
+<br>
 
 
 
@@ -289,7 +286,7 @@ gzという拡張子(*.gz)がついてるファイルは通常gzipで圧縮処�
 
 ファイルサイズの確認
 <pre class="cmdbox">
-	$ ls -l gencode.vM30.annotation.gtf.gz
+  $ ls -l gencode.vM30.annotation.gtf.gz
 </pre>
 <pre class="output">
   -rw-r--r-- 1 tom tom 29248040 10月  9 21:35 gencode.vM30.annotation.gtf.gz
@@ -297,7 +294,7 @@ gzという拡張子(*.gz)がついてるファイルは通常gzipで圧縮処�
 
 ファイルサイズの確認(より分かりやすい表示)
 <pre class="cmdbox">
-	$ ls -lh gencode.vM30.annotation.gtf.gz
+  $ ls -lh gencode.vM30.annotation.gtf.gz
 </pre>
 <pre class="output">
   -rw-r--r-- 1 tom tom 28M 10月  9 21:35 gencode.vM30.annotation.gtf.gz
@@ -305,17 +302,17 @@ gzという拡張子(*.gz)がついてるファイルは通常gzipで圧縮処�
 
 ファイル内容の表示
 <pre class="cmdbox">
-	$ cat gencode.vM30.annotation.gtf.gz    # 圧縮ファイルなのでよく分からない.
+  $ cat gencode.vM30.annotation.gtf.gz    # 圧縮ファイルなのでよく分からない.
 </pre><br>
 
 圧縮ファイルを解凍
 <pre class="cmdbox">
-	$ gunzip gencode.vM30.annotation.gtf.gz
+  $ gunzip gencode.vM30.annotation.gtf.gz
 </pre><br>
 
 ファイルサイズの確認
 <pre class="cmdbox">
-	$ ls -lh gencode.vM30.annotation.gtf
+  $ ls -lh gencode.vM30.annotation.gtf
 </pre>
 <pre class="output">
   -rw-r--r-- 1 tom tom 868M 10月  9 21:35 gencode.vM30.annotation.gtf
@@ -323,40 +320,129 @@ gzという拡張子(*.gz)がついてるファイルは通常gzipで圧縮処�
 
 ファイル内容の表示
 <pre class="cmdbox">
-	$ cat gencode.vM30.annotation.gtf | head   # ちゃんと読めることを確認.
+  $ cat gencode.vM30.annotation.gtf | head   # ちゃんと読めることを確認.
 </pre><br>
 
 ファイルの圧縮
 <pre class="cmdbox">
-	$ gzip gencode.vM30.annotation.gtf
+  $ gzip gencode.vM30.annotation.gtf
 </pre><br>
 
 圧縮ファイルのまま扱う.
 <pre class="cmdbox">
-	$ zcat gencode.vM30.annotation.gtf.gz
+  $ zcat gencode.vM30.annotation.gtf.gz
+</pre><br>
+
+
+
+
+<h4>GTFファイル内を探索</h4>
+
+ファイルフォーマットの詳細については以下のURLを参照せよ.
+<br>
+<a href="https://www.gencodegenes.org/pages/data_format.html">
+https://www.gencodegenes.org/pages/data_format.html
+</a><br><br>
+
+<img src="images/GTF_format.png"><br>
+
+
+
+
+<pre class="cmdbox">
+  $ zcat gencode.vM30.annotation.gtf.gz | grep -v '^#' | head -n 1 | tr '\t' '\n'
+
+      # grep -v '^#' で文頭にあるコメント行を除いている.
+      # ''又は""で囲むことで#のコメントとしての意味を失わせることができる.
+      # tr '\t' '\n'はタブ(\t)を改行(\n)に変換している.
 </pre>
 <pre class="output">
-##description: evidence-based annotation of the mouse genome (GRCm39), version M30 (Ensembl 107)
-##provider: GENCODE
-##contact: gencode-help@ebi.ac.uk
-##format: gtf
-##date: 2022-05-12
-chr1	HAVANA	gene	3143476	3144545	.	+	.	gene_id "ENSMUSG00000102693.2"; gene_type "TEC"; gene_name "4933401J01Rik"; level 2; mgi_id "MGI:1918292"; havana_gene "OTTMUSG00000049935.1";
-chr1	HAVANA	transcript	3143476	3144545	.	+	.	gene_id "ENSMUSG00000102693.2"; transcript_id "ENSMUST00000193812.2"; gene_type "TEC"; gene_name "4933401J01Rik"; transcript_type "TEC"; transcript_name "4933401J01Rik-201"; level 2; transcript_support_level "NA"; mgi_id "MGI:1918292"; tag "basic"; tag "Ensembl_canonical"; havana_gene "OTTMUSG00000049935.1"; havana_transcript "OTTMUST00000127109.1";
-chr1	HAVANA	exon	3143476	3144545	.	+	.	gene_id "ENSMUSG00000102693.2"; transcript_id "ENSMUST00000193812.2"; gene_type "TEC"; gene_name "4933401J01Rik"; transcript_type "TEC"; transcript_name "4933401J01Rik-201"; exon_number 1; exon_id "ENSMUSE00001343744.2"; level 2; transcript_support_level "NA"; mgi_id "MGI:1918292"; tag "basic"; tag "Ensembl_canonical"; havana_gene "OTTMUSG00000049935.1"; havana_transcript "OTTMUST00000127109.1";
-chr1	ENSEMBL	gene	3172239	3172348	.	+	.	gene_id "ENSMUSG00000064842.3"; gene_type "snRNA"; gene_name "Gm26206"; level 3; mgi_id "MGI:5455983";
-chr1	ENSEMBL	transcript	3172239	3172348	.	+	.	gene_id "ENSMUSG00000064842.3"; transcript_id "ENSMUST00000082908.3"; gene_type "snRNA"; gene_name "Gm26206"; transcript_type "snRNA"; transcript_name "Gm26206-201"; level 3; transcript_support_level "NA"; mgi_id "MGI:5455983"; tag "basic"; tag "Ensembl_canonical";
+  chr1
+  HAVANA
+  gene
+  3143476
+  3144545
+  .
+  +
+  .
+  gene_id "ENSMUSG00000102693.2"; gene_type "TEC"; gene_name "4933401J01Rik"; level 2; mgi_id "MGI:1918292"; havana_gene "OTTMUSG00000049935.1";
+</pre>
+<br>
+
+
+<pre class="cmdbox">
+  $ zcat gencode.vM30.annotation.gtf.gz | grep -v '^#' | awk -F'\t' '$3=="gene"' > gene
+  $ cat gene | wc -l
+</pre>
+<pre class="output">
+  56691
+</pre><br>
+
+
+ちゃんと遺伝子のデータ抽出ができているかをWEBページ上に掲載されているデータと照合.
+<br>
+<a href="https://www.gencodegenes.org/mouse/stats.html">
+https://www.gencodegenes.org/mouse/stats.html
+</a><br><br>
+
+<img src="images/Gene_Number.png"><br><br>
+
+<pre class="cmdbox">
+  $ cat gene | awk -F'\t' '{print $9}' | awk -F';' '{print $1, $3}' > gene_id_name_1
+  $ cat gene_id_name_1 | head
+</pre>
+<pre class="output">
+  gene_id "ENSMUSG00000102693.2"  gene_name "4933401J01Rik"
+  gene_id "ENSMUSG00000064842.3"  gene_name "Gm26206"
+  gene_id "ENSMUSG00000051951.6"  gene_name "Xkr4"
+  gene_id "ENSMUSG00000102851.2"  gene_name "Gm18956"
+  gene_id "ENSMUSG00000103377.2"  gene_name "Gm37180"
+  gene_id "ENSMUSG00000104017.2"  gene_name "Gm37363"
+  gene_id "ENSMUSG00000103025.2"  gene_name "Gm37686"
+  gene_id "ENSMUSG00000089699.2"  gene_name "Gm1992"
+  gene_id "ENSMUSG00000103201.2"  gene_name "Gm37329"
+  gene_id "ENSMUSG00000103147.2"  gene_name "Gm7341"
+</pre><br>
+
+<pre class="cmdbox">
+  $ cat gene_id_name_1 | awk '{print $2, $4}' | tr -d '"' |sort > gene_id_name_2
+  $ cat gene_id_name_2 | head
+</pre>
+<pre class="output">
+  ENSMUSG00000000001.5 Gnai3
+  ENSMUSG00000000003.16 Pbsn
+  ENSMUSG00000000028.16 Cdc45
+  ENSMUSG00000000031.18 H19
+  ENSMUSG00000000037.18 Scml2
+  ENSMUSG00000000049.12 Apoh
+  ENSMUSG00000000056.8 Narf
+  ENSMUSG00000000058.7 Cav2
+  ENSMUSG00000000078.8 Klf6
+  ENSMUSG00000000085.17 Scmh1
 </pre><br>
 
 
 
 
 <hr>
-<h3><a id="l7">LECTURE 7: SCRIPT作製</a></h3>
-<h4>tm</h4>
-<h4>reverse complement</h4>
+<h3><a id="l7">LECTURE 7</a></h3>
 
+前準備
+<pre class="cmdbox">
+  $ mkdir ~/HIGO/lecture_7
+  $ cd    ~/HIGO/lecture_7
+  $ cp -r ~/SRC_20221018-19/data/lecture_7_* .
+</pre><br>
 
+<ol>
+  <li><h4>課題1</h4>
+  lecture_7_1の各行に対して「元の配列 相補鎖の配列 配列長 GC比 Tm値」を出力するスクリプトを作製せよ.  
+  <li><h4>課題2</h4>
+  lecture_7_2には複数の実験結果ファイルが「アッセイ名_YYMMDD.拡張子」の形式で格納されている.<br>
+  これを「YYYYMMDD_アッセイ名.拡張子」の形式にrenameしたい.<br>
+  またアッセイ名や拡張子には表記ブレがある(tiffとtifなど)ので、一つの表現に統一しておきたい。<br>
+	以上の要望を満たすスクリプトを作製せよ.
+</ol>
 
 <hr>
 <h3><a id="l8">LECTURE 8: RNA-seq</a></h3>
